@@ -2,7 +2,7 @@ function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-const API_URL = process.env.API_URL || "http://localhost:3000/api/sensor/update";
+const API_URL = "https://iot-dashboard-rust.vercel.app/api/sensor/update";
 
 const sendData = async () => {
   const payload = {
@@ -21,8 +21,9 @@ const sendData = async () => {
 
     console.log("Sent:", payload, "| Status:", res.status);
   } catch (err) {
-    console.error("Failed to send data:", err.message);
+    console.error("Error sending data:", err.message);
   }
 };
+
 
 setInterval(sendData, 3000);
