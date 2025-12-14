@@ -20,7 +20,7 @@ export default async function handler(req,res){
       timestamp: new Date()
     });
 
-    // Update or create the device itself
+
     await Device.findOneAndUpdate(
       { deviceId },
       {
