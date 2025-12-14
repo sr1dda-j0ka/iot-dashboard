@@ -19,7 +19,16 @@ export default async function handler(req,res){
       aqi: Number(aqi),
       timestamp: new Date()
     });
+    
+    const idsToKeep = await Reading.find({ deviceId })
+      .sort({ timestamp: -1 })
+      .limit(50)
+      .select("_id");
 
+    await Reading.deleteMany({
+      deviceId,
+      _id: { $nin: idsToKeep.map(r => r._id) },
+    });
 
     await Device.findOneAndUpdate(
       { deviceId },
